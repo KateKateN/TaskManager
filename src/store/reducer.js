@@ -1,0 +1,94 @@
+import * as actionTypes from './actions'
+
+const initialState = {
+   number: 5,
+   tasks: [],
+   currentUser: null,
+   users: [],
+}
+
+
+const reducer = (state = initialState, action) => {
+
+   console.log("state init");
+   switch (action.type) {
+      
+      case actionTypes.ADD_TASK:
+         return {
+            ...state,
+            tasks: [...state.tasks, action.val]
+         }
+
+      case actionTypes.DELETE_TASK:
+
+         return {
+            ...state,
+            tasks: state.tasks.filter(task => task.id != action.val.id)
+         }
+
+      case actionTypes.ADD_USER:
+         return {
+            ...state,
+            users: [...state.users, action.user]
+         }
+
+      case actionTypes.CURRENT_USER:
+         return {
+            ...state,
+            currentUser: action.user
+         }
+
+      case actionTypes.LOGIN_CURRENT_USER:
+         return {
+            ...state,
+            currentUser: action.user
+         }
+
+      case actionTypes.RESET_CURRENT_USER:
+         return {
+            ...state,
+            currentUser: null
+         }
+
+      case actionTypes.SHOW_POPUP:
+         return {
+            ...state,
+            tasks: state.tasks.map(task =>
+               task.id === action.id ? {
+                  ...task,
+                  popup: !task.popup
+               } : task
+            )
+         }
+
+      case actionTypes.SHARE_TASK:
+         return {
+            ...state,
+            tasks: state.tasks.map(task =>
+               task.id === action.payload.task.id ? {
+                  // task.id === action.payload.task.id && task.usersId.some(x => x != action.payload.user.id) ? {
+                  ...task,
+                  usersId: [...task.usersId.concat(action.payload.user.id)],
+                  popup: !task.popup
+               } : task
+            )
+         }
+
+      case actionTypes.DELETE_SHARED_USER:
+         return {
+
+            ...state,
+            tasks: state.tasks.map(task =>
+               task.id === action.payload.task.id ? {
+                  ...task,
+                  usersId: [...task.usersId.filter(x => x !== action.payload.user)]
+               } : task)
+         }
+   }
+   return state;
+}
+
+
+
+export default reducer;
+

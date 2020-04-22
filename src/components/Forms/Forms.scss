@@ -1,0 +1,123 @@
+.auth {
+   height: 100vh;
+   color: #1C1C1C;
+   position: relative;
+   font-family: 'Open Sans', sans-serif;
+
+   &__content--wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 350px;
+   }
+
+   &__content {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 30px 20px 40px 20px;
+      box-shadow: 0 1px 2px #dadada ;
+   }
+
+   &__title {
+      font-size: 20px;
+      font-weight: 600;
+      text-align: center;
+   }
+
+   &__form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+   }
+
+   &__label {
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 15px;
+   }
+
+   &__errorText {
+      font-size: 12px;
+      font-weight: 600;
+      color: #c72f2f;
+   }
+
+   &__input {
+      margin-top: 7px;
+      border: 1px solid #dadada;
+      padding: 10px;
+      border-radius: 10px;
+      outline: none;
+
+      &:focus {
+         border: 1px solid #8da4e4;
+      }
+   }
+
+   &__input--error{
+      border: 1px solid #c72f2f;
+   }
+
+   &__buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+   }
+
+   &__logInBtn {
+      width: 100%;
+      color: #ffffff;
+      margin-top: 20px;
+      background: #8da4e4;
+      padding: 12px 10px;
+      outline: none;
+      font-size: 14px;
+      text-align: center;
+      border: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-radius: 10px;
+      font-family: 'Open Sans', sans-serif;
+      transition: .3s ease-in-out;
+      cursor: pointer;
+      
+      &:hover {
+         background: darken($color: #8da4e4, $amount: 10);
+      }
+   }
+
+   &__linkText {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: 600;
+   }
+
+   &__link {
+      color: #ffffff;
+   }
+
+   &__signInBtn {
+      @extend .auth__logInBtn;
+      background: #7edb8b;
+         
+      &:hover {
+         background: darken($color: #7edb8b, $amount: 10);
+      }
+   }
+}
+
+// MEDIA QUERIES
+
+@media (max-width: 640px) {
+
+   .auth {
+
+      &__content {
+         width: 70%;
+      }
+   }
+}

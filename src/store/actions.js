@@ -1,0 +1,9 @@
+export const ADD_TASK = 'ADD_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
+export const RESET_CURRENT_USER = "RESET_CURRENT_USER";
+export const SHOW_POPUP = "SHOW_POPUP";
+export const SHARE_TASK = "SHARE_TASK";
+export const DELETE_SHARED_USER = "DELETE_SHARED_USER";
+export const ADD_USER = "ADD_USER";
+export const CURRENT_USER = "CURRENT_USER";
+export const LOGIN_CURRENT_USER = "LOGIN_CURRENT_USER";

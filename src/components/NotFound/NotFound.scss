@@ -1,0 +1,11 @@
+.notFound {
+   background: hsl(230, 100%, 91%);
+   height: 100vh;
+
+   &__text {
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0;
+      padding-top: 100px;
+   }
+}

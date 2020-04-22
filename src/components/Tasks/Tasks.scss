@@ -1,0 +1,389 @@
+.tasks {
+   display: flex;
+   background: #24293e;
+   color: #1C1C1C;
+   font-family: 'Open Sans', sans-serif;
+   
+   &__creation {
+      width: 450px;
+      color: #ffffff;
+      padding: 30px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+   }
+
+   &__greeting {
+      font-size: 32px;
+      font-weight: 600;
+   }
+
+   &__text {
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 20px;
+   }
+
+   &__form {
+      display: flex;
+      flex-direction: column;
+      margin-top: 50px;
+   }
+
+   &__input {
+      background: rgba(255,255,255, 0.2);
+      border-radius: 15px;
+      padding: 10px 20px;
+      border: none;
+      outline: none;
+      margin-bottom: 10px;
+      color: #ffffff;
+      resize: none;
+      transition: .3s ease-in-out;
+
+      &:focus {
+         background: rgba(255,255,255, 0.4);
+      }
+
+      &::-webkit-input-placeholder {
+         color: rgba(255,255,255, 0.5);
+         text-transform: uppercase;
+         font-size: 12px;
+       }
+   }
+
+   &__createBtn {
+      background: #58beb6;
+      padding: 12px 10px;
+      outline: none;
+      border: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      transition: .3s ease-in-out;
+      
+      &:hover {
+         background: #439e96;
+      }
+
+      &:disabled {
+         background: #7aa09d;
+         cursor: not-allowed;
+      
+         &:hover {
+            background: #7aa09d;
+         }
+      }
+   }
+
+   &__logOutLink {
+      margin-top: auto;
+   }
+
+   &__logOutBtn {
+      margin-top: 20px;
+      width: 100%;
+      background: #ff8c49;
+      padding: 12px 10px;
+      outline: none;
+      border: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-radius: 15px;
+      color: white;
+      transition: .3s ease-in-out;
+      cursor: pointer;
+      
+      &:hover {
+         background: #ee3c3c;
+      }
+   }
+
+   &__logOutLink--phone {
+      display: none;
+   }
+
+   &__allTasks {
+      background: #f7f7f7;
+      border-radius: 10px;
+      width: 100%;
+      margin: 7px;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      justify-content: space-between;
+   }
+}
+
+textarea.tasks__input {
+   font-family: 'Open Sans', sans-serif;
+}
+
+textarea.tasks__input::-webkit-input-placeholder {
+   font-size: 13px;
+}
+
+
+// task css 
+
+.task {
+   width: 45%;
+   position: relative;
+   min-width: 300px;
+   padding: 15px;
+   border-radius: 15px;
+   background: #ffffff;
+   font-size: 13px;
+   margin: 5px;
+   box-shadow: 0 1px 2px #dadada;
+   &__header {
+      display: flex;
+      justify-content: space-between;
+   }
+   
+   &__title {
+      font-size: 14px; 
+      text-transform: uppercase;
+      font-weight: 600;
+   }
+
+   &__remark {
+      @extend .task__title;
+   }
+   
+   &__shareBtn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #1C1C1C;
+      transition: .2s ease-in-out;
+      outline: none;
+
+      &:hover {
+         color: #439e96;
+      }      
+   }
+
+   &__shareBtn--disabled {
+      @extend .task__shareBtn;
+      color: #dadada;
+      cursor: not-allowed;
+      pointer-events: none;
+
+      &:hover {
+         color: #dadada;
+      }
+   }
+   
+   &__shareBtn--active {
+      color: #439e96;
+   }
+
+   &__text {
+      margin-top: 10px;
+   }  
+
+   &__shared {
+      color: rgb(0, 110, 255);
+      margin-top: 10px;
+      width: 60%;
+      cursor: pointer;
+   }
+
+   &__sharedUseres {
+      position: relative;
+      border-radius: 5px;
+      transition: .3s ease-in-out;
+   
+      &:hover {
+         color: rgb(100, 100, 100);
+         overflow: hidden;
+      }
+   
+      &:hover::after {
+         content: "delete user";
+         position: absolute;
+         font-size: 12px;
+         text-align: center;
+         top: 0;
+         animation: slideLeft .3s ease-in-out;
+         width: 50%;
+         right: 0;
+         height: 100%;
+         background: #a3a3a3;
+         border-radius: 5px;
+         box-sizing: border-box;
+         text-transform: uppercase;
+         color: rgb(255, 255, 255);
+   
+      }
+   }
+
+   &__sharedRemark {
+      font-size: 10px; 
+      font-style: italic;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 20px;
+      color: #977c7c;
+   }
+
+   &__deleteBtn {
+      margin-top: 20px;
+      text-transform: uppercase;
+      border-radius: 10px;
+      font-weight: 600;
+      background: #d14f4f;
+      color: white;
+      border: none;
+      padding: 7px 15px;
+      cursor: pointer;
+      outline: none;
+      
+      &:hover {
+         background: #a33333;
+      }
+   }   
+
+   &__unsubscribeBtn {
+      @extend .task__deleteBtn;
+      margin-top: 5px;
+   }
+}
+
+.users__popup {
+   position: absolute;
+   display: flex;
+   flex-direction: column;
+   cursor: pointer;
+   border-radius: 5px;
+   border: 1px solid eee;
+   box-shadow: 0px 1px 2px #dddddd;
+   background: #e7e7e7;
+   overflow: hidden;
+   top: 50px;
+   right: 20px;
+   z-index: 10;
+}
+
+.users__name {
+   color: #1C1C1C;
+   text-transform: uppercase;
+   font-weight: 600;
+   font-size: 11px;
+   padding: 7px 25px;
+   border-bottom: 1px solid #ffffff;
+   transition: .2s ease-in-out;
+   
+   &:hover {
+      color: #ffffff;
+      background: #7aa09d;
+   }
+   
+   &:last-child {
+      border-bottom: none;
+   }
+}
+
+.users__name--warning {
+   font-size: 10px;
+   text-transform: uppercase;
+   font-weight: 600;
+   padding: 7px 10px;
+}
+
+
+
+
+@keyframes slideLeft {
+   0% {
+      right: -100%;
+      background: #c04e4e1f;
+   }
+   
+   100% {
+      right: 0;
+      width: 50%;
+   }
+}
+
+// MEDIA QUERIES
+
+@media (max-width: 1200px) {
+   .task {
+      width: 100%;
+   }
+}
+
+@media (max-width: 640px) {
+   body {
+      background: #24293e;
+   }
+
+   .tasks {
+      flex-direction: column;
+
+      &__creation {
+         width: 100%;
+         height: auto;
+      }
+
+      &__greeting {
+         text-align: center;
+      }
+
+      &__text {
+         text-align: center;
+      }
+
+      &__allTasks {
+         width: 97%;
+         background: none;
+         padding: 5px;
+      }
+
+      &__logOutLink {
+         display: none;
+      }
+
+      &__logOutLink--phone {
+         display: block;
+         margin-top: 20px;
+         padding: 20px;
+      }
+
+      &__logOutBtn--phone {
+         width: 100%;
+         background: #ff8c49;
+         padding: 12px 10px;
+         outline: none;
+         border: none;
+         font-weight: 600;
+         text-transform: uppercase;
+         border-radius: 15px;
+         color: white;
+         transition: .3s ease-in-out;
+         cursor: pointer;
+         
+         &:hover {
+            background: #ee3c3c;
+         }
+      }
+   }
+
+   .task {
+      min-width: auto;
+
+      &__remark {
+         width: 100%;
+         color: #ffffff;
+         text-align: center;
+      }
+   }
+}
