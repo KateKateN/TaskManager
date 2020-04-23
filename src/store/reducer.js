@@ -64,8 +64,7 @@ const reducer = (state = initialState, action) => {
             tasks: state.tasks.map(task =>
                task.id === action.payload.task.id ? {
                   ...task,
-                  usersId: [...task.usersId.concat(action.payload.user.id)],
-                  popup: !task.popup
+                  usersId: [...task.usersId.concat(action.payload.user.id)]
                } : task
             ),
             showSharePopupId: null
