@@ -5,6 +5,8 @@ const initialState = {
    tasks: [],
    currentUser: null,
    users: [],
+
+   showSharePopupId : null
 }
 
 
@@ -53,12 +55,7 @@ const reducer = (state = initialState, action) => {
       case actionTypes.SHOW_POPUP:
          return {
             ...state,
-            tasks: state.tasks.map(task =>
-               task.id === action.id ? {
-                  ...task,
-                  popup: !task.popup
-               } : task
-            )
+            showSharePopupId : action.id == state.showSharePopupId ? null: action.id
          }
 
       case actionTypes.SHARE_TASK:
@@ -66,12 +63,12 @@ const reducer = (state = initialState, action) => {
             ...state,
             tasks: state.tasks.map(task =>
                task.id === action.payload.task.id ? {
-                  // task.id === action.payload.task.id && task.usersId.some(x => x != action.payload.user.id) ? {
                   ...task,
                   usersId: [...task.usersId.concat(action.payload.user.id)],
                   popup: !task.popup
                } : task
-            )
+            ),
+            showSharePopupId: null
          }
 
       case actionTypes.DELETE_SHARED_USER:
@@ -84,10 +81,19 @@ const reducer = (state = initialState, action) => {
                   usersId: [...task.usersId.filter(x => x !== action.payload.user)]
                } : task)
          }
+
+         case actionTypes.UNSUBSCRIBE:
+            return {
+               ...state,
+               tasks: state.tasks.map(task =>
+                  task.id === action.payload.task.id ? {
+                     ...task,
+                     usersId: [...task.usersId.filter(x => x !== action.payload.user)]
+                  } : task)
+            }
    }
    return state;
 }
-
 
 
 export default reducer;

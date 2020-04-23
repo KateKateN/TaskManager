@@ -7,3 +7,4 @@ export const DELETE_SHARED_USER = "DELETE_SHARED_USER";
 export const ADD_USER = "ADD_USER";
 export const CURRENT_USER = "CURRENT_USER";
 export const LOGIN_CURRENT_USER = "LOGIN_CURRENT_USER";
+export const UNSUBSCRIBE = "UNSUBSCRIBE";

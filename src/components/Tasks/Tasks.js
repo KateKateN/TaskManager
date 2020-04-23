@@ -14,7 +14,6 @@ const Tasks = (props) => {
       id: '',
       usersId: [],
       ownerId: props.curUser.id,
-      popup: false
    });
 
    //for two input 
@@ -37,7 +36,6 @@ const Tasks = (props) => {
          id: '',
          usersId: [],
          ownerId: props.curUser.id,
-         popup: false
       });
    }
 
@@ -86,48 +84,49 @@ const Tasks = (props) => {
    const isTaskShared = (task) => task.usersId && task.usersId.some(x => x === props.curUser.id);
 
    const unsubscribe = (task) => {
-      props.users.map(user => {
-         task.usersId.map(userId => {
-            if (user.id === userId) {
-               props.deleteSharedUser(userId, task)
-            }
-         })
-      })
+         props.unsubscribe(props.curUser.id, task)
    }
 
+   const isShowPopup = (taskId) => {
+      return taskId == props.showSharePopupId;
+   }
 
    const listTasks = getCurentUserTasks.length
       ? (
          getCurentUserTasks.map(task => {
             return (
-               <div className= "task" key={task.id}>
-               <div className= "task__header">
-                  <div className= "task__title">{task.title}</div>
-                     <button className= {isTaskShared(task) ? "task__shareBtn--disabled" : "task__shareBtn"} onClick={() => props.showPopup(task.id)}><i className={ !task.popup ? "fa fa-user-plus" : "fa fa-user-plus task__shareBtn--active"}></i></button>
+               <div className="task" key={task.id}>
+                  <div className="task__header">
+                     <div className="task__title">{task.title}</div>
+                     <button className={isTaskShared(task) ? "task__shareBtn--disabled" : "task__shareBtn"} onClick={() => props.showPopup(task.id)}>
+                        <i className={!isShowPopup(task.id) ? "fa fa-user-plus" : "fa fa-user-plus task__shareBtn--active"}></i>
+                     </button>
                   </div>
                   <div className="task__text">{task.content}</div>
 
                   {isTaskShared(task)
-                     ? <div className="task__sharedRemark">this task is shared with you</div> 
-                     : task.usersId.length > 0 
-                     ? <div className="task__shared">shared with:
-                        {showSharedUsers(task)} 
-                        </div> 
-                     : null
+                     ? <div className="task__sharedRemark">this task is shared with you</div>
+                     : task.usersId.length > 0
+                        ? <div className="task__shared">shared with:
+                        {showSharedUsers(task)}
+                        </div>
+                        : null
                   }
+
                   {isTaskShared(task)
                      ? <button className="task__unsubscribeBtn" onClick={() => unsubscribe(task)}>unsubscribe</button>
                      : <button className="task__deleteBtn" onClick={() => props.deleteTask(task)}>delete</button>
                   }
-                     <div className="users__popup">
-                        {task.popup ? availableUsersToShare(task) : null}
-                     </div>
+
+                  <div className="users__popup">
+                     {isShowPopup(task.id) ? availableUsersToShare(task) : null}
+                  </div>
                </div>
-         )
-      })
-   )
-   : (
-      <div className= "task__remark"> You have no Tasks yet yaay!</div>
+            )
+         })
+      )
+      : (
+         <div className="task__remark"> You have no Tasks yet yaay!</div>
       )
 
 
@@ -145,28 +144,28 @@ const Tasks = (props) => {
                <input className= "tasks__input" 
                   onChange={e => handleChange(e)} 
                   type="text" id="title" 
-                  name="title" 
+                  name="title"
                   value= {newItem.title}
                   placeholder="title"
                   autocomplete="off" required />
-               <textarea className= "tasks__input" 
-                  onChange={e => handleChange(e)} 
-                  type="text" id="content" 
-                  value= {newItem.content}
+               <textarea className="tasks__input"
+                  onChange={e => handleChange(e)}
+                  type="text" id="content"
+                  value={newItem.content}
                   name="task" placeholder="task" required />
-               <button className= "tasks__createBtn" disabled= {isSubmitDisabled()} onClick={(e) => onAddTask(e)}><i className="fa fa-plus"></i> add task</button>
+               <button className="tasks__createBtn" disabled={isSubmitDisabled()} onClick={(e) => onAddTask(e)}><i className="fa fa-plus"></i> add task</button>
             </form>
-            <Link to="/login" className= "tasks__logOutLink" onClick={logOut}>
-               <button className= "tasks__logOutBtn">Log Out</button>
+            <Link to="/login" className="tasks__logOutLink" onClick={logOut}>
+               <button className="tasks__logOutBtn">Log Out</button>
             </Link>
          </div>
-         <div className= "tasks__allTasks">
+         <div className="tasks__allTasks">
             {listTasks}
-         </div> 
-         <Link to="/login" className= "tasks__logOutLink--phone" onClick={logOut}>
-               <button className= "tasks__logOutBtn--phone">Log Out</button>
-            </Link>
-      </div> 
+         </div>
+         <Link to="/login" className="tasks__logOutLink--phone" onClick={logOut}>
+            <button className="tasks__logOutBtn--phone">Log Out</button>
+         </Link>
+      </div>
    )
 };
 
@@ -177,17 +176,19 @@ const mapStateToProps = state => {
       tasks: state.tasks,
       curUser: state.currentUser,
       users: state.users,
+      showSharePopupId : state.showSharePopupId
    };
 };
 
 const mapDispatchToProps = dispatch => {
    return {
-      addTask: (task) => dispatch({type: actionTypes.ADD_TASK, val: task}),
-      deleteTask: (task) => dispatch({type: actionTypes.DELETE_TASK, val: task}),
-      resetCurrentUser: () => dispatch({type: actionTypes.RESET_CURRENT_USER}),
-      showPopup:(id) => dispatch({type: actionTypes.SHOW_POPUP, id: id}),
-      shareTask: (curUser, curTask) => dispatch({ type: actionTypes.SHARE_TASK,  payload: {user: curUser, task: curTask},}),
-      deleteSharedUser: (curUserId, curTask) => dispatch({ type: actionTypes.DELETE_SHARED_USER,  payload: {user: curUserId, task: curTask},})
+      addTask: (task) => dispatch({ type: actionTypes.ADD_TASK, val: task }),
+      deleteTask: (task) => dispatch({ type: actionTypes.DELETE_TASK, val: task }),
+      resetCurrentUser: () => dispatch({ type: actionTypes.RESET_CURRENT_USER }),
+      showPopup: (id) => dispatch({ type: actionTypes.SHOW_POPUP, id: id }),
+      shareTask: (curUser, curTask) => dispatch({ type: actionTypes.SHARE_TASK, payload: { user: curUser, task: curTask }, }),
+      deleteSharedUser: (curUserId, curTask) => dispatch({ type: actionTypes.DELETE_SHARED_USER, payload: { user: curUserId, task: curTask }, }),
+      unsubscribe: (curUserId, curTask) => dispatch({ type: actionTypes.DELETE_SHARED_USER, payload: { user: curUserId, task: curTask }, })
    };
 };
 
