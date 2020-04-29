@@ -1,7 +1,6 @@
 import * as actionTypes from './actions'
 
 const initialState = {
-   number: 5,
    tasks: [],
    currentUser: null,
    users: [],
