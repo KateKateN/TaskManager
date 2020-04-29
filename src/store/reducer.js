@@ -11,8 +11,6 @@ const initialState = {
 
 
 const reducer = (state = initialState, action) => {
-
-   console.log("state init");
    switch (action.type) {
       
       case actionTypes.ADD_TASK:

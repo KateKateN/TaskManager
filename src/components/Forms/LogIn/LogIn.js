@@ -22,13 +22,6 @@ const LogIn = (props) => {
       })
    }
 
-
-   console.log('LOGIN current user:', props.currentUser);
-   console.log('LOGIN users:', props.users);
-   console.log('LOGIN tasks:', props.tasks);
-   console.log('LOGIN validation', props.isLogged);
-
-
    const logIn = () => {
       
       const existingUser = props.users.find( x => x.email === user.email && x.password === user.password);
